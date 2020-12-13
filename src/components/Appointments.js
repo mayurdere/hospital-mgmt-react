@@ -5,7 +5,7 @@ import axios from 'axios';
 
 
 const Appointments = () => {
-    const user = useContext(UserContext);
+    const {user} = useContext(UserContext);
 
     const [appointments, setAppointment] = useState();
     useEffect(() => {

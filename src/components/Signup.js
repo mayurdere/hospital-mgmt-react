@@ -1,12 +1,15 @@
-import React, { useState, useEffect } from 'react'
+import React, { useState, useEffect, useContext } from 'react'
 import axios from 'axios'
 import { Redirect } from 'react-router-dom';
+import UserContext from '../context/user-context'
 import Header from './Header';
 import Footer from './Footer';
 
 const Signup = () => {
+    const { setUser } = useContext(UserContext)
+
     const [appSignUp, setAppSignUp] = useState(
-        { name: '', email: '', password: '', confirmPassword: '', formSubmitted: 'false' }
+        { name: '', email: '', password: '', confirmPassword: '', formSubmitted: false }
     );
     const [appSignUpErrors, setAppSignUpErrors] = useState(
         { confirmPasswordError: '' }
@@ -27,7 +30,10 @@ const Signup = () => {
                     setAppSignUp({
                         formSubmitted: true
                     })
-                    window.location.reload(false);
+                    const userData = JSON.parse(response.config.data)
+                    console.log(userData)
+                    setUser(userData)
+                    this.props.history.push('/')
                 })
                 .catch(function (error) {
                     console.log(error)

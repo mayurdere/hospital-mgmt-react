@@ -1,11 +1,14 @@
-import React, { Component, useState } from 'react'
-import { Redirect } from 'react-router-dom'
+import React, { Component, useState, useContext } from 'react'
+import { Redirect, withRouter } from 'react-router-dom'
+import UserContext from '../context/user-context'
 import axios from 'axios'
 import Header from './Header';
 import Footer from './Footer';
 
 
 const Login = () => {
+    const { setUser } = useContext(UserContext)
+
     const[appLogin, setAppLogin] = useState(
         { email: '', password: '', formSubmitted: 'false' }
     );
@@ -27,7 +30,11 @@ const Login = () => {
                     setAppLogin({
                         formSubmitted: true
                     })
-                    window.location.reload(false);
+                    const userData = JSON.parse(response.config.data)
+                    console.log(userData)
+                    setUser(userData)
+                    this.props.history.push('/')
+
                 })
                 .catch(function (error) {
                     console.log(error)
@@ -54,4 +61,4 @@ const Login = () => {
     );
 }
 
-export default Login;
+export default withRouter(Login);

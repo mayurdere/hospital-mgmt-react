@@ -7,7 +7,7 @@ import UserContext from '../context/user-context'
 
 const HomePage = () => {
 
-    const user = useContext(UserContext);
+    const {user} = useContext(UserContext);
 
 
     return (
@@ -25,7 +25,7 @@ const HomePage = () => {
                         <img height="100" className="svg" src={process.env.PUBLIC_URL + '/medicine.svg'} />
                     </div>
                 </div>
-                <div className="row mt-5">
+                <div className="row mt-5" style={{marginBottom: "5%"}}>
                     <div className="col-md-6" >
                         <img className="svg" src={process.env.PUBLIC_URL + '/doctor.svg'} />
                     </div>

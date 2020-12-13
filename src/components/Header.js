@@ -1,10 +1,10 @@
 import React, { useContext, useEffect } from 'react'
 import UserContext from '../context/user-context'
-import { Link, Redirect } from 'react-router-dom'
+import { Link, Redirect, withRouter } from 'react-router-dom'
 import axios from 'axios'
 
 const Header = () => {
-    const user = useContext(UserContext);
+    const {user, setUser} = useContext(UserContext);
 
     const logoutClicked = (e) => {
         e.preventDefault()
@@ -12,8 +12,8 @@ const Header = () => {
             .then(function (response) {
                 localStorage.clear()
                 console.log(response)
-                window.location.reload(false);
-                return <Redirect to="/" />
+                setUser(undefined)
+                this.props.history.push("/")
             })
             .catch(function (error) {
                 console.log(error)
@@ -47,4 +47,4 @@ const Header = () => {
     );
 }
 
-export default Header;
+export default withRouter(Header);

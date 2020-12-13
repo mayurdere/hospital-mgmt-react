@@ -4,7 +4,7 @@ import '../node_modules/bootstrap/dist/css/bootstrap.min.css';
 import '../node_modules/bootstrap/dist/js/bootstrap.bundle';
 import '../node_modules/bootstrap/dist/js/bootstrap.bundle.min';
 import '../node_modules/font-awesome/css/font-awesome.min.css';
-import { BrowserRouter, Route, Switch } from 'react-router-dom';
+import { BrowserRouter, Route, Switch, Redirect } from 'react-router-dom';
 import Homepage from './components/Homepage';
 import Login from './components/Login';
 import Signup from './components/Signup';
@@ -26,23 +26,14 @@ axios.defaults.headers.common['Authorization'] = 'Bearer ' + localStorage.getIte
 
 function App() {
   const [user, setUser] = useState();
-    useEffect(() => {
-        fetchUser()
-    }, []);
-
-    const fetchUser = async () => {
-        const userFetched = await axios.post('api/auth/me')
-        .then(res => {
-            setUser(res.data)
-        }).catch(function (error) {
-            console.log(error)
-            setUser()
-        })
-    }
+  useEffect(() => {
+    console.log(user)
+  })
+    
   return (
     <div className="App">
       <BrowserRouter>
-      <UserContext.Provider value={user}>
+      <UserContext.Provider value={{user, setUser}}>
         <Header />  
         <Switch>
         <Route path="/" component={Homepage} exact={true}/>
